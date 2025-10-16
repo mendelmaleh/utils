@@ -21,3 +21,17 @@ func Fmt(t time.Time) string {
 func New(year int, month time.Month, day int) time.Time {
 	return time.Date(year, month, day, 0, 0, 0, 0, time.UTC)
 }
+
+type Date struct {
+	time.Time
+}
+
+func (d *Date) UnmarshalCSV(data []byte) error {
+	t, err := time.Parse(ISO8601, string(data))
+	if err != nil {
+		return err
+	}
+
+	*d = Date{Time: t}
+	return nil
+}
