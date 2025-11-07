@@ -10,7 +10,7 @@ import (
 
 type Color string
 
-var (
+const (
 	// Apple built in colors
 	Fuchsia Color = "#FF2968"
 	Orange        = "#FF9500"
