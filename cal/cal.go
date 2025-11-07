@@ -2,6 +2,7 @@ package cal
 
 import (
 	"io"
+	"os"
 	"time"
 
 	"github.com/emersion/go-ical"
@@ -60,4 +61,14 @@ func (cal Calendar) Color(c Color) {
 func (cal Calendar) Encode(w io.Writer) error {
 	enc := ical.NewEncoder(w)
 	return enc.Encode(cal.Calendar)
+}
+
+func (cal Calendar) WriteFile(name string) error {
+	f, err := os.Create(name)
+	if err != nil {
+		return err
+	}
+
+	defer f.Close()
+	return cal.Encode(f)
 }
